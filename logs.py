@@ -7,11 +7,11 @@ init()
 
 # Define log level colors
 LOG_COLORS = {
-    'info': 'green',
+    'info': 'magenta',
     'warning': 'yellow',
     'error': 'red',
-    'critical': 'magenta',
-    'debug': 'blue',
+    'critical': 'red',
+    'results': 'blue',
     # You can add more categories here
 }
 
@@ -34,11 +34,3 @@ def log(message, level='info'):
     print(colored_log_entry)
     print(colored(separator, color))
 
-# Example usage
-log("This is an informational message.", "info")
-log("This is a warning message.", "warning")
-log("This is an error message.", "error")
-log("This is a critical message.", "critical")
-log("This is a debug message.", "debug")
-# Custom category usage
-log("This is a custom category message.", "custom")

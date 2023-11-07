@@ -19,47 +19,36 @@ module.exports = (app) => {
   
   app.post("/v1/user", async (req, res) => {
     const { validPassword, validUsername } = await sharedPromise;
+    // Define the schema for user input validation
     const schema = Joi.object({
-  username: Joi.string().alphanum().required(),
-  first_name: Joi.string().optional(),
-  last_name: Joi.string().optional(),
-  city: Joi.string().optional(),
-  primary_email: Joi.string().email().required(),
-  password: Joi.string().required(),
-});
+      username: validUsername.required(),
+      first_name: Joi.string().optional(),
+      last_name: Joi.string().optional(),
+      city: Joi.string().optional(),
+      primary_email: Joi.string().email().required(),
+      password: validPassword.required(),
+    });
 
-const { error, value } = schema.validate(req.body);
+    // Validate the user input
+    const { error, value } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).send({ error: error.details[0].message });
+    }
 
-if (error) {
-  return res.status(400).send({ error: error.details[0].message });
-}
+    // Check if the user already exists
+    const existingUser = await User.findOne({ username: value.username });
+    if (existingUser) {
+      return res.status(409).send({ error: 'Username already exists' });
+    }
 
-const usernameError = validUsername(value.username);
-if (usernameError) {
-  return res.status(400).send(usernameError);
-}
+    // Create a new user
+    const user = new User(value);
+    await user.save();
 
-const passwordError = validPassword(value.password);
-if (passwordError) {
-  return res.status(400).send(passwordError);
-}
-
-const existingUser = await User.findOne({ username: value.username });
-if (existingUser) {
-  return res.status(400).send({ error: "username already in use" });
-}
-
-const existingEmail = await User.findOne({ primary_email: value.primary_email });
-if (existingEmail) {
-  return res.status(400).send({ error: "email address already in use" });
-}
-
-const user = new User(value);
-await user.save();
-
-res.status(201).send({
-  username: user.username,
-  primary_email: user.primary_email,
-});
+    // Send the response
+    res.status(201).send({
+      username: user.username,
+      primary_email: user.primary_email,
+    });
   });
 };

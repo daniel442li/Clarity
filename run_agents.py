@@ -5,8 +5,22 @@ from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 import os
 from dotenv import load_dotenv, find_dotenv
+from pyfiglet import figlet_format
+from termcolor import colored, cprint
+from logs import log
+import questionary
+from pygments import highlight
+from pygments.lexers import PythonLexer
+from pygments.formatters import TerminalFormatter
 
 load_dotenv(find_dotenv())
+
+def clear(): 
+    if os.name == 'nt': 
+        _ = os.system('cls') 
+    else: 
+        _ = os.system('clear') 
+
 
 def run_tests():
     # Define the path to your shell script
@@ -20,14 +34,13 @@ def run_tests():
 
     # Decode the stdout to string from bytes, if necessary
     output = stdout.decode('utf-8')
-
     # Use a regular expression to search for the number of passing tests in the output
     match = re.search(r'Number of tests passed: (\d+)', output)
 
     if match:
         # Extract the number of passing tests
         passing_tests = match.group(1)
-        print(f"Number of tests passed: {passing_tests}")
+        
         
     else:
         # If there is no match, output an error message
@@ -35,7 +48,7 @@ def run_tests():
         print(f"Error output: {stderr.decode('utf-8')}")
 
     passing_tests_num = int(passing_tests) if passing_tests else None
-    return passing_tests_num
+    return output, passing_tests_num
 
 
 llm = ChatOpenAI(temperature=0, model="gpt-4")
@@ -66,13 +79,26 @@ with open('./src/server/api/v1/example_user.cjs', 'r', encoding='utf-8') as file
 
 
 def generate_oneshot_code(files):
+    cprint(figlet_format('Running AI on Codebase', font='digital'), 'magenta')
+    supporting_files = ""
+
+    log("Using these files: " + str(files), "info")
+    for file_path in files: 
+        if file_path == 'No Context':
+            continue
+        with open(file_path, 'r', encoding='utf-8') as file:
+            supporting_files += "\n" + file_path + "\n" + file.read()
+
+    
+    log("Sending context to AI", "info")
     result = chain.run(main_file=editable_file, files=files)
 
     match = pattern.search(result)
     if match:
+        log("Code created by AI", "info")
         edited_code = match.group(1)
     else:
-        print("No JavaScript code block found.")
+        log("Code errored out. Please check logs", "info")
 
     # Reading the entire content of the .cjs file at once# Specify the path to the file
     file_path = './src/server/api/v1/user.cjs'
@@ -80,39 +106,39 @@ def generate_oneshot_code(files):
     # Check if the file exists and delete it
     if os.path.exists(file_path):
         os.remove(file_path)
-        print(f"Deleted the file: {file_path}")
-    else:
-        print(f"The file does not exist: {file_path}")
 
     content = editable_file.replace("//WRITE YOUR CODE HERE", edited_code)
 
-    print(content)
     # Now create a new file at the same location
     with open(file_path, 'w') as file:
         file.write(content)
-        print(f"Created a new file: {file_path}")
+        log(f"Created a new file: {file_path}", "info")
+
+    
+    output, passing_tests = run_tests()
+
+    print(output)
+    print(passing_tests)
+
+    log(f"Number of tests passed: {passing_tests}", "results")
+
+    while True:
+        choice = questionary.select(
+        "Additional Actions",
+            choices=["Print Testing Output", "Print Generated Code", "Return to Main Menu"],
+        ).ask()
+        
+        if choice == "Print Testing Output":
+            print(highlight(output, PythonLexer(), TerminalFormatter()))
+        if choice == "Print Generated Code":
+            print(highlight(content, PythonLexer(), TerminalFormatter()))
+
+        if choice == "Return to Main Menu":
+            clear()
+            break
 
 
-    passing_tests = run_tests()
-
+        
     return passing_tests
 
-print("No supporting files")
-generate_oneshot_code("", "")
 
-
-# print("Using test files")
-# supporting_files = ""
-# with open('./test/api/user.cjs', 'r', encoding='utf-8') as file:
-#     test_file = file.read()
-
-# supporting_files += "\n" + "test/api/user.cjs" + "\n" + test_file
-# generate_code(supporting_files, test_file)
-
-
-# print("Using validation files")
-# with open('./src/shared/validation.js', 'r', encoding='utf-8') as file:
-#     shared_validation = file.read()
-
-# supporting_files += ("\n" + "src/shared/validation.js" + "\n" + shared_validation)
-# generate_code(supporting_files, test_file)

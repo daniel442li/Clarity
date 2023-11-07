@@ -3,9 +3,7 @@ from termcolor import colored, cprint
 import os
 from pyfiglet import figlet_format
 from datetime import datetime, date, timedelta, timezone
-import json
-import ctypes
-import time
+from run_agents import generate_oneshot_code
 import questionary
 
 from prompt_toolkit.styles import Style
@@ -56,9 +54,8 @@ file_paths.append('No Context')
 file_paths.append('Return to Select Screen')
 
 if __name__ == "__main__": 
-    cprint(figlet_format('Clarity', font='slant'), 'magenta', attrs=['bold'])
-
     while True:
+        cprint(figlet_format('Clarity', font='slant'), 'magenta', attrs=['bold'])
         menu = questionary.select(
         "Main Menu", style = custom_style_fancy,
         choices=[
@@ -72,13 +69,16 @@ if __name__ == "__main__":
                 "Change Output:", style = custom_style_fancy,
                 choices=file_paths).ask()
             
-            if 'Return to Select Screen' in output:
+            if 'Return to Select Screen' in output or output == []:
                 continue
             else:
                 if 'No Context' in output:
                     output = ['No Context']
                 print(output)
-                # clear()
+                
+                clear()
+                generate_oneshot_code(output)
+                
                 # time.sleep(3) 
             
         if menu == 'View Results':
