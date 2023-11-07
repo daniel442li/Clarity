@@ -2,7 +2,7 @@
 
 const Joi = require("joi");
 const User = require("../../models/user.cjs");
-const sharedPromise = import("../../../shared/validation.js");
+const sharedPromise = import("../../../shared/validation.cjs");
 
 module.exports = (app) => {
   /**
@@ -18,7 +18,7 @@ module.exports = (app) => {
    */
   
   app.post("/v1/user", async (req, res) => {
-    const { validPassword, validUsername } = await sharedPromise;
-    //WRITE YOUR CODE HERE
+    //This shared promise is imported from validation.js
+    const { validPassword, validUsername } = await sharedPromise;    
   });
 };

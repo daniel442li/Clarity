@@ -1,7 +1,7 @@
 "use strict";
 
 const Joi = require("joi");
-const sharedPromise = import("../../../shared/validation.js");
+const sharedPromise = import("../../../shared/validation.cjs");
 
 module.exports = (app) => {
   /**

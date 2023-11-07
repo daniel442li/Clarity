@@ -78,8 +78,6 @@ if __name__ == "__main__":
                 
                 clear()
                 generate_oneshot_code(output)
-                
-                # time.sleep(3) 
             
         if menu == 'View Results':
             pass
