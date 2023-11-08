@@ -16,6 +16,13 @@
         0,
         0
     ],
+    "['./test/api/user.cjs']": [
+        0,
+        10,
+        0,
+        2,
+        0
+    ],
     "['./src/shared/validation.cjs']": [
         8,
         8,
@@ -34,7 +41,17 @@
         4
     ],
     "['./src/shared/validation.cjs', './test/api/user.cjs']": [
-        7
+        7,
+        0,
+        9,
+        4,
+        7,
+        13,
+        4,
+        7,
+        11,
+        9,
+        12
     ],
     "['./src/shared/validation.cjs', './src/server/models/user.cjs', './test/api/user.cjs']": [
         8,
@@ -51,6 +68,30 @@
         8,
         9,
         9,
+        9
+    ],
+    "['./src/shared/validation.cjs', './src/server/index.cjs', './src/server/base.pug', './src/server/models/user.cjs', './test/api/harness.cjs', './test/api/data.json', './test/api/user.cjs']": [
+        11,
+        7,
+        12,
+        9,
+        7,
+        9,
+        6,
+        11,
+        10,
+        3
+    ],
+    "['./src/shared/validation.cjs', './src/server/index.cjs', './src/server/base.pug', './src/server/solitare.cjs', './src/server/api/index.cjs', './src/server/models/user.cjs', './test/api/harness.cjs', './test/api/data.json', './test/api/user.cjs']": [
+        7,
+        8,
+        7,
+        7,
+        9,
+        7,
+        11,
+        0,
+        12,
         9
     ]
 }

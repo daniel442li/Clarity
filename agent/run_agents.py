@@ -112,9 +112,9 @@ def generate_oneshot_code(files):
     results = []
 
     # Using ThreadPoolExecutor to call the function in multiple threads.
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         # Create a list to hold the futures.
-        futures = [executor.submit(call_gpt, template_string) for _ in range(10)]
+        futures = [executor.submit(call_gpt, template_string) for _ in range(5)]
 
         # Wait for all futures to complete and add the result to the results list.
         for future in concurrent.futures.as_completed(futures):

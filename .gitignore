@@ -5,8 +5,8 @@ public/*
 !public/css
 !public/favicon.ico
 !public/index.html
-*.txt
 .DS_Store
 package-lock.json
 venv/
 __pycache__/
+.env
