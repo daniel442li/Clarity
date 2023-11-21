@@ -5,6 +5,7 @@ from pyfiglet import figlet_format
 from datetime import datetime, date, timedelta, timezone
 from run_agents import generate_oneshot_code
 import questionary
+from print_results import print_results
 
 from prompt_toolkit.styles import Style
 
@@ -80,4 +81,4 @@ if __name__ == "__main__":
                 generate_oneshot_code(output)
             
         if menu == 'View Results':
-            pass
+            print_results()

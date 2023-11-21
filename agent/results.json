@@ -38,7 +38,27 @@
         8,
         12,
         8,
-        4
+        4,
+        11,
+        4,
+        10,
+        8,
+        8,
+        10,
+        7,
+        13,
+        8,
+        6,
+        8,
+        4,
+        8,
+        8,
+        2,
+        10,
+        4,
+        4,
+        8,
+        7
     ],
     "['./src/shared/validation.cjs', './test/api/user.cjs']": [
         7,
@@ -52,6 +72,20 @@
         11,
         9,
         12
+    ],
+    "['./src/shared/validation.cjs', './test/api/test_cases.md']": [
+        2,
+        8,
+        8,
+        6,
+        4
+    ],
+    "['./src/shared/validation.cjs', './test/api/data.json', './test/api/user.cjs']": [
+        5,
+        9,
+        8,
+        8,
+        8
     ],
     "['./src/shared/validation.cjs', './src/server/models/user.cjs', './test/api/user.cjs']": [
         8,
