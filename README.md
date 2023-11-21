@@ -1,10 +1,63 @@
-# Agent Testing Framework
+# LLM Unit Testing Framework
 
-### Server-Side Workflow Support
+## Introduction
 
-There are a number of things that need to get upgraded throughout the application.  You need to support CRUD actions for users.  This means that a user should be able to register, log in and out, view profiles and modify their profile (eventually).  A user should also be able to create a new game, and mark a game as either deleted or completed (these are both valid choices - though we have no UI that can support this yet).
+LLM Unit Testing Framework is an innovative unit testing solution designed for modern software development. Leveraging language learning models (LLMs), it offers intuitive test creation and efficient test execution, ensuring robustness and reliability in software applications.
 
-* The registration page itself doesn't need to change, but the server side now need to properly support creation of documents in the Users collection in the database
-    * This route is outlined in ***src/server/api/v1/user.cjs*** at POST _/v1/user_.
-    
+## Features
 
+- Easy-to-write test cases with LLM integration.
+- Automated test generation and evaluation.
+- Support for a wide range of programming languages.
+- Detailed test execution reports.
+
+## Installation
+
+### Prerequisites
+
+- Node.js and npm
+- Docker
+- Python 3.x
+
+### Setting up the Environment
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/your-username/Clarity.git
+   cd Clarity
+
+2. **Install Dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Build the Docker Image:**
+
+   ```bash
+   docker run --name mongodb -p 55000:27017 -d mongo
+    ```
+
+4. **Start the Server:**
+
+   ```bash
+   npm run start-test
+   ```
+
+5. **Set up venv & Start the agent:**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ``` 
+
+6. **Set up .env**
+   Rename env.example to .env and add your OpenAI api key
+
+7. **Start the agent:**
+
+   ```bash
+   cd agent
+   python agent/main.py
+   ``````
