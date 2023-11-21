@@ -2,14 +2,12 @@
 
 ## Introduction
 
-LLM Unit Testing Framework is an innovative unit testing solution designed for modern software development. Leveraging language learning models (LLMs), it offers intuitive test creation and efficient test execution, ensuring robustness and reliability in software applications.
+Real world software code generation w/ unit tests
 
-## Features
+# To-Do
 
-- Easy-to-write test cases with LLM integration.
-- Automated test generation and evaluation.
-- Support for a wide range of programming languages.
-- Detailed test execution reports.
+Run tests on the cloud without need for docker files, etc. 
+Make more unit tests + code scenarios
 
 ## Installation
 
@@ -17,7 +15,7 @@ LLM Unit Testing Framework is an innovative unit testing solution designed for m
 
 - Node.js and npm
 - Docker
-- Python 3.x
+- Python 3.11
 
 ### Setting up the Environment
 
@@ -48,14 +46,17 @@ LLM Unit Testing Framework is an innovative unit testing solution designed for m
 5. **Set up venv & Start the agent:**
 
    ```bash
-   python -m venv venv
+   python3.11 -m venv venv
    source venv/bin/activate
    ``` 
 
 6. **Set up .env**
-   Rename env.example to .env and add your OpenAI api key
 
-7. **Start the agent:**
+   ```bash
+   Rename env.example to .env and add your OpenAI api key
+   ```bash
+   
+8. **Start the agent:**
 
    ```bash
    cd agent
